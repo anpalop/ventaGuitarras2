@@ -20,9 +20,15 @@ export function App() {
     }
   }
 
+  function removerElemento(id) {
+    setCarrito((prevCarrito) =>
+      prevCarrito.filter((element) => element.id !== id)
+    );
+  }
+
   return (
     <>
-      <Header carrito={carrito} setCarrito={setCarrito} />
+      <Header carrito={carrito} removerElemento={removerElemento} />
       <main className="container-xl mt-5">
         <h2 className="text-center">Nuestra Colección</h2>
         <div className="row mt-5">
