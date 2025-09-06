@@ -6,7 +6,8 @@ import { db } from "./data/db";
 export function App() {
   const [dataBase, setDataBase] = useState(db);
   const [carrito, setCarrito] = useState([]);
-
+  const CANTIDAD_MAXIMA = 5;
+  const MINIMA_CANTIDAD = 1;
   function AgregarCarrito(objeto) {
     let busqueda = carrito.findIndex((element) => element.id === objeto.id);
     if (busqueda !== -1) {
@@ -26,9 +27,42 @@ export function App() {
     );
   }
 
+  function incrementarCantidad(id) {
+    const actualizacionCarrito = carrito.map((element) => {
+      if (element.id === id && element.cantidad < CANTIDAD_MAXIMA) {
+        return {
+          ...element,
+          cantidad: element.cantidad + 1,
+        };
+      }
+      return element;
+    });
+
+    setCarrito(actualizacionCarrito);
+  }
+
+  function decrementarCantidad(id) {
+    const actualizacionCarrito = carrito.map((element) => {
+      if (element.id === id && element.cantidad > MINIMA_CANTIDAD) {
+        return {
+          ...element,
+          cantidad: element.cantidad - 1,
+        };
+      }
+      return element;
+    });
+
+    setCarrito(actualizacionCarrito);
+  }
+
   return (
     <>
-      <Header carrito={carrito} removerElemento={removerElemento} />
+      <Header
+        carrito={carrito}
+        removerElemento={removerElemento}
+        incrementarCantidad={incrementarCantidad}
+        decrementarCantidad={decrementarCantidad}
+      />
       <main className="container-xl mt-5">
         <h2 className="text-center">Nuestra Colección</h2>
         <div className="row mt-5">

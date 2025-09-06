@@ -1,7 +1,12 @@
 import { useMemo } from "react";
 import { Fragment } from "react/jsx-runtime";
 
-export default function Header({ carrito, removerElemento }) {
+export default function Header({
+  carrito,
+  removerElemento,
+  incrementarCantidad,
+  decrementarCantidad,
+}) {
   // Creacion de state derivado
   // Para no hacer tantos renders (y ahorrar recursos)
   const carritoVacio = useMemo(() => carrito.length === 0, [carrito]);
@@ -69,7 +74,9 @@ export default function Header({ carrito, removerElemento }) {
                               <button
                                 type="button"
                                 className="btn btn-dark"
-                                onClick={() => {}}
+                                onClick={() => {
+                                  decrementarCantidad(element.id);
+                                }}
                               >
                                 -
                               </button>
@@ -77,11 +84,7 @@ export default function Header({ carrito, removerElemento }) {
                               <button
                                 type="button"
                                 className="btn btn-dark"
-                                onClick={() => {
-                                  let copiaCarrito = [...carrito];
-
-                                  element.cantidad++;
-                                }}
+                                onClick={() => incrementarCantidad(element.id)}
                               >
                                 +
                               </button>
