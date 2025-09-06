@@ -1,9 +1,10 @@
 import { Fragment } from "react/jsx-runtime";
 
-export default function Header({ carrito, setCarrito }) {
-  const nombre = "Jhon";
+export default function Header({ carrito }) {
 
-  function AgregarQuitar(item) {}
+  // Creacion de state derivado
+
+  const carritoVacio = () => carrito.length === 0 
 
   return (
     <header className="py-5 header">
@@ -27,7 +28,8 @@ export default function Header({ carrito, setCarrito }) {
               />
 
               <div id="carrito" className="bg-white p-3">
-                <p className="text-center">El carrito esta vacio</p>
+                {
+                  carritoVacio() ? (<p className="text-center">El carrito esta vacio</p>) : (
                 <table className="w-100 table">
                   <thead>
                     <tr>
@@ -80,7 +82,7 @@ export default function Header({ carrito, setCarrito }) {
                     ))}
                   </tbody>
                 </table>
-
+)}
                 <p className="text-end">
                   Total pagar: <span className="fw-bold">$899</span>
                 </p>

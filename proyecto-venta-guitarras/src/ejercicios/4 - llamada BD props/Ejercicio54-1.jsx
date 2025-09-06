@@ -29,6 +29,7 @@ export default function ComponentesPorCurso() {
         <p>==========================================</p>
         {curso.map((element) => (
           <PropsCursos
+            key={element.nombre} 
             nombre={element.nombre}
             estudiantes={element.cantidadEstudiantes}
           />
