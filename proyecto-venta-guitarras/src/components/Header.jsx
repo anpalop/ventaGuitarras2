@@ -1,15 +1,21 @@
+import { useMemo } from "react";
 import { Fragment } from "react/jsx-runtime";
 
 export default function Header({ carrito }) {
   // Creacion de state derivado
-  const carritoVacio = () => carrito.length === 0;
+  // Para no hacer tantos renders (y ahorrar recursos)
+  const carritoVacio = useMemo(() => carrito.length === 0, [carrito]);
+  // Cada vez que cambio carrito, se ejecuta la funcion
 
   // Suma total de productos
-  const carritoTotal = () =>
-    carrito.reduce(
-      (acomulado, element) => acomulado + element.cantidad * element.price,
-      0
-    );
+  const carritoTotal = useMemo(
+    () =>
+      carrito.reduce(
+        (acomulado, element) => acomulado + element.cantidad * element.price,
+        0
+      ),
+    [carrito]
+  );
 
   return (
     <header className="py-5 header">
@@ -33,7 +39,7 @@ export default function Header({ carrito }) {
               />
 
               <div id="carrito" className="bg-white p-3">
-                {carritoVacio() ? (
+                {carritoVacio ? (
                   <p className="text-center">El carrito esta vacio</p>
                 ) : (
                   <>
@@ -91,7 +97,7 @@ export default function Header({ carrito }) {
                     </table>
                     <p className="text-end">
                       Total pagar:{" "}
-                      <span className="fw-bold">${carritoTotal()}</span>
+                      <span className="fw-bold">${carritoTotal}</span>
                     </p>
                   </>
                 )}
