@@ -6,6 +6,7 @@ export default function Header({
   removerElemento,
   incrementarCantidad,
   decrementarCantidad,
+  limpizarCarrito,
 }) {
   // Creacion de state derivado
   // Para no hacer tantos renders (y ahorrar recursos)
@@ -109,7 +110,10 @@ export default function Header({
                   </>
                 )}
 
-                <button className="btn btn-dark w-100 mt-3 p-2">
+                <button
+                  className="btn btn-dark w-100 mt-3 p-2"
+                  onClick={limpizarCarrito}
+                >
                   Vaciar Carrito
                 </button>
               </div>

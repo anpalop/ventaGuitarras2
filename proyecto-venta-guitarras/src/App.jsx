@@ -55,6 +55,9 @@ export function App() {
     setCarrito(actualizacionCarrito);
   }
 
+  function limpizarCarrito() {
+    setCarrito([]);
+  }
   return (
     <>
       <Header
@@ -62,6 +65,7 @@ export function App() {
         removerElemento={removerElemento}
         incrementarCantidad={incrementarCantidad}
         decrementarCantidad={decrementarCantidad}
+        limpizarCarrito={limpizarCarrito}
       />
       <main className="container-xl mt-5">
         <h2 className="text-center">Nuestra Colección</h2>
