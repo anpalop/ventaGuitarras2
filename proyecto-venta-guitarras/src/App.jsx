@@ -1,13 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import Guitarras from "./components/Guitarras";
 import { db } from "./data/db";
 
 export function App() {
+  const estadoInicialCarrito = () => {
+    const almaceCarrito = localStorage.getItem("carrito");
+    return almaceCarrito ? JSON.parse(almaceCarrito) : [];
+  };
+
   const [dataBase, setDataBase] = useState(db);
-  const [carrito, setCarrito] = useState([]);
+  const [carrito, setCarrito] = useState(estadoInicialCarrito);
+
   const CANTIDAD_MAXIMA = 5;
   const MINIMA_CANTIDAD = 1;
+
+  // Local storage
+  useEffect(() => {
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+  }, [carrito]);
   function AgregarCarrito(objeto) {
     let busqueda = carrito.findIndex((element) => element.id === objeto.id);
     if (busqueda !== -1) {
@@ -58,6 +69,7 @@ export function App() {
   function limpizarCarrito() {
     setCarrito([]);
   }
+
   return (
     <>
       <Header
