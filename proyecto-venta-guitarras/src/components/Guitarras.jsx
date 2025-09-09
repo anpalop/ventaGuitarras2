@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Guitarras({ datos, AgregarCarrito }) {
   let { id, name, image, description, price } = datos;
 
@@ -11,7 +13,9 @@ export default function Guitarras({ datos, AgregarCarrito }) {
         />
       </div>
       <div className="col-8">
-        <h3 className="text-black fs-4 fw-bold text-uppercase"> {name} </h3>
+        <Link to={`/guitarra/${id}`} className="text-decoration-none">
+          <h3 className="text-black fs-4 fw-bold text-uppercase"> {name} </h3>
+        </Link>
         <p>{description}</p>
         <p className="fw-black text-primary fs-3"> {price} </p>
         <button
