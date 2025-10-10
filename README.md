@@ -1,24 +1,24 @@
-# 🧠 Proyecto Web: Gestión Integral de Tareas
+# 🎸 VentaGuitarras: Plataforma Web de Comercio Musical
 
-Este repositorio contiene el desarrollo completo de una aplicación web moderna orientada a la gestión de tareas, diseñada bajo principios de ingeniería de sistemas. El proyecto está dividido en dos módulos principales: **Frontend** y **Backend**, siguiendo una arquitectura escalable y mantenible.
+Este repositorio contiene el desarrollo completo de **VentaGuitarras**, una aplicación web moderna para la venta y gestión de guitarras. El proyecto está dividido en dos módulos principales: **Frontend** y **Backend**, siguiendo principios de ingeniería de sistemas y buenas prácticas de desarrollo web.
 
 ---
 
-## 🚀 Tecnologías y herramientas utilizadas
+## 🚀 Tecnologías utilizadas
 
 ### 🖥️ Frontend
 
 - **HTML5, CSS3 y ES8**: Estructura semántica, estilos modernos y lógica avanzada.
-- **Bootstrap 5**: Framework responsivo para diseño visual adaptable y Mobile First.
-- **React + React Router DOM**: SPA con navegación dinámica entre vistas.
+- **Bootstrap 5**: Diseño responsive y Mobile First para una experiencia fluida en cualquier dispositivo.
+- **React + React Router DOM**: SPA con navegación dinámica entre vistas como catálogo, carrito, login y perfil.
 - **TypeScript**: Tipado estático para robustez y mantenibilidad.
-- **6 funciones clave** implementadas en la interfaz:
-  - Registro de usuario
-  - Inicio de sesión
-  - Creación de tareas
-  - Edición de tareas
-  - Eliminación de tareas
-  - Visualización filtrada por estado
+- **6 funciones clave** implementadas:
+  - Registro e inicio de sesión
+  - Visualización de catálogo de guitarras
+  - Agregar al carrito
+  - Finalizar compra
+  - Gestión de usuarios
+  - Panel de administración
 
 ### 🔐 Autenticación
 
@@ -26,6 +26,8 @@ Este repositorio contiene el desarrollo completo de una aplicación web moderna 
   - Validación en frontend
   - Cifrado de contraseñas con `bcrypt`
   - Tokens JWT para sesiones seguras
+
+---
 
 ### 📦 Backend
 
@@ -37,5 +39,5 @@ Este repositorio contiene el desarrollo completo de una aplicación web moderna 
 
 ---
 
-## 🧩 Arquitectura del repositorio
+## 🧩 Estructura del repositorio
 
