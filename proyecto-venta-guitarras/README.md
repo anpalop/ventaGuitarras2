@@ -1,12 +1,80 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Proyecto VentaGuitarras
 
-Currently, two official plugins are available:
+## Requisitos
+- Node.js >= 18
+- npm >= 9
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Instalación
 
-## Expanding the ESLint configuration
+### 1. Instalar dependencias del frontend y backend
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+# Desde la raíz del proyecto
+npm install
+
+# Instalar dependencias del backend
+cd backend
+npm install
+```
+
+### 2. Ejecutar el backend (Express)
+
+```bash
+cd backend
+npm run dev
+```
+
+El backend se ejecuta en el puerto **3001**.
+
+### 3. Ejecutar el frontend (React + Vite)
+
+```bash
+cd .. # Volver a la raíz del proyecto
+npm run dev
+```
+
+El frontend se ejecuta en el puerto **5173** (o el siguiente disponible).
+
+## Comandos útiles
+
+- `npm run dev` (en frontend): Inicia el servidor de desarrollo de Vite.
+- `npm run build` (en frontend): Compila la aplicación para producción.
+- `npm run dev` (en backend): Inicia el servidor Express con nodemon.
+- `npm run start` (en backend): Inicia el servidor Express en modo producción.
+
+## Estructura
+
+- `/src` → Código fuente del frontend (React + TypeScript)
+- `/backend` → Código fuente del backend (Node.js + Express)
+
+## Funcionalidades
+- Autenticación (login, registro, rutas privadas)
+- Formulario de contacto
+- Listado de usuarios
+- Consumo de API con fetch y axios
+- Validación y manejo de errores
+- Layout moderno con Tailwind
+
+## Notas
+- Si el puerto 5173 está ocupado, Vite usará el siguiente disponible (ej: 5174).
+- El backend debe estar corriendo para que el frontend pueda enviar datos y autenticarse.
+- Si tienes problemas con estilos, asegúrate de que el archivo `postcss.config.cjs` existe y contiene la configuración correcta.
+
+## Ejemplo de inicio rápido
+```bash
+# Instalar todo
+npm install
+cd backend && npm install
+
+# Ejecutar backend
+npm run dev
+
+# En otra terminal, ejecutar frontend
+cd ..
+npm run dev
+```
+
+---
+
+Si tienes dudas, revisa los archivos README y la estructura del proyecto.

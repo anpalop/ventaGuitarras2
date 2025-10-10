@@ -1,3 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 @charset "UTF-8";
 .fw-black {
   font-weight: 900;

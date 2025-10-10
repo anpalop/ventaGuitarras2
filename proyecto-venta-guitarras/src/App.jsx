@@ -35,20 +35,8 @@ export function App() {
 
   return (
     <Routes>
-      <Route
-        path="/"
-        element={
-          <Home
-            carrito={carrito}
-            setCarrito={setCarrito}
-            AgregarCarrito={AgregarCarrito}
-          />
-        }
-      />
-      <Route
-        path="/guitarra/:id"
-        element={<GuitarraDetalle AgregarCarrito={AgregarCarrito} />}
-      />
+      {/* Eliminar Home y colección de la ruta principal */}
+      <Route path="/guitarra/:id" element={<GuitarraDetalle AgregarCarrito={AgregarCarrito} />} />
     </Routes>
   );
 }
