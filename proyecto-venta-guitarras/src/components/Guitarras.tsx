@@ -1,7 +1,22 @@
+import React from "react";
 import { Link } from "react-router-dom";
 
-export default function Guitarras({ datos, AgregarCarrito }) {
-  let { id, name, image, description, price } = datos;
+interface Guitarra {
+  id: number;
+  name: string;
+  image: string;
+  description: string;
+  price: number;
+  cantidad?: number;
+}
+
+interface GuitarrasProps {
+  datos: Guitarra;
+  AgregarCarrito: (guitarra: Guitarra) => void;
+}
+
+const Guitarras: React.FC<GuitarrasProps> = ({ datos, AgregarCarrito }) => {
+  const { id, name, image, description, price } = datos;
 
   return (
     <div className="col-md-6 col-lg-4 my-4 row align-items-center">
@@ -30,4 +45,6 @@ export default function Guitarras({ datos, AgregarCarrito }) {
       </div>
     </div>
   );
-}
+};
+
+export default Guitarras;

@@ -1,71 +1,83 @@
+import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { useEffect, useState } from "react";
 import Header from "./Header";
-import { db } from "../data/db";
+import { db } from "../data/db.js";
 
-export default function GuitarraDetalle({ AgregarCarrito }) {
-  const { id } = useParams();
-  const guitarra = db.find((g) => g.id === parseInt(id));
+interface Guitarra {
+  id: number;
+  name: string;
+  image: string;
+  description: string;
+  price: number;
+  cantidad?: number;
+}
+
+interface GuitarraDetalleProps {
+  AgregarCarrito: (guitarra: Guitarra) => void;
+}
+
+const GuitarraDetalle: React.FC<GuitarraDetalleProps> = ({
+  AgregarCarrito,
+}) => {
+  const { id } = useParams<{ id: string }>();
+  const guitarra = db.find((g: Guitarra) => g.id === parseInt(id || ""));
 
   const estadoInicialCarrito = () => {
     const almaceCarrito = localStorage.getItem("carrito");
     return almaceCarrito ? JSON.parse(almaceCarrito) : [];
   };
 
-  const [carrito, setCarrito] = useState(estadoInicialCarrito);
+  const [carrito, setCarrito] = useState<Guitarra[]>(estadoInicialCarrito);
 
   const CANTIDAD_MAXIMA = 5;
   const MINIMA_CANTIDAD = 1;
 
-  // Local storage
   useEffect(() => {
     localStorage.setItem("carrito", JSON.stringify(carrito));
   }, [carrito]);
 
-  function agregarCarritoLocal(objeto) {
+  function agregarCarritoLocal(objeto: Guitarra) {
     let busqueda = carrito.findIndex((element) => element.id === objeto.id);
     if (busqueda !== -1) {
       let actulizarCantidad = [...carrito];
-      actulizarCantidad[busqueda].cantidad++;
+      actulizarCantidad[busqueda].cantidad =
+        (actulizarCantidad[busqueda].cantidad || 1) + 1;
       setCarrito(actulizarCantidad);
     } else {
-      // Agregar cantidad
       objeto.cantidad = 1;
       setCarrito([...carrito, objeto]);
     }
   }
 
-  function removerElemento(id) {
+  function removerElemento(id: number) {
     setCarrito((prevCarrito) =>
       prevCarrito.filter((element) => element.id !== id)
     );
   }
 
-  function incrementarCantidad(id) {
+  function incrementarCantidad(id: number) {
     const actualizacionCarrito = carrito.map((element) => {
-      if (element.id === id && element.cantidad < CANTIDAD_MAXIMA) {
+      if (element.id === id && (element.cantidad || 1) < CANTIDAD_MAXIMA) {
         return {
           ...element,
-          cantidad: element.cantidad + 1,
+          cantidad: (element.cantidad || 1) + 1,
         };
       }
       return element;
     });
-
     setCarrito(actualizacionCarrito);
   }
 
-  function decrementarCantidad(id) {
+  function decrementarCantidad(id: number) {
     const actualizacionCarrito = carrito.map((element) => {
-      if (element.id === id && element.cantidad > MINIMA_CANTIDAD) {
+      if (element.id === id && (element.cantidad || 1) > MINIMA_CANTIDAD) {
         return {
           ...element,
-          cantidad: element.cantidad - 1,
+          cantidad: (element.cantidad || 1) - 1,
         };
       }
       return element;
     });
-
     setCarrito(actualizacionCarrito);
   }
 
@@ -149,7 +161,6 @@ export default function GuitarraDetalle({ AgregarCarrito }) {
           </div>
         </div>
       </div>
-
       <footer className="bg-dark mt-5 py-5">
         <div className="container-xl">
           <p className="text-white text-center fs-4 mt-4 m-md-0">
@@ -159,4 +170,6 @@ export default function GuitarraDetalle({ AgregarCarrito }) {
       </footer>
     </>
   );
-}
+};
+
+export default GuitarraDetalle;
