@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Header from "./Header";
 import Guitarras from "./Guitarras";
 import { db } from "../data/db";
 
@@ -61,36 +60,20 @@ const Home: React.FC<HomeProps> = ({ carrito, setCarrito, AgregarCarrito }) => {
   }
 
   return (
-    <>
-      <Header
-        carrito={carrito}
-        removerElemento={removerElemento}
-        incrementarCantidad={incrementarCantidad}
-        decrementarCantidad={decrementarCantidad}
-        limpizarCarrito={limpizarCarrito}
-      />
-      <main className="container-xl mt-5">
-        <h2 className="text-center">Nuestra Colección</h2>
-        <div className="row mt-5">
-          {dataBase.map((element) => {
-            return (
-              <Guitarras
-                key={element.id}
-                datos={element}
-                AgregarCarrito={AgregarCarrito}
-              />
-            );
-          })}
-        </div>
-      </main>
-      <footer className="bg-dark mt-5 py-5">
-        <div className="container-xl">
-          <p className="text-white text-center fs-4 mt-4 m-md-0">
-            GuitarLA - Todos los derechos Reservados por Jhon Perez
-          </p>
-        </div>
-      </footer>
-    </>
+    <main className="container-xl mt-5 pt-20">
+      <h2 className="text-center">Nuestra Colección</h2>
+      <div className="row mt-5">
+        {dataBase.map((element) => {
+          return (
+            <Guitarras
+              key={element.id}
+              datos={element}
+              AgregarCarrito={AgregarCarrito}
+            />
+          );
+        })}
+      </div>
+    </main>
   );
 };
 

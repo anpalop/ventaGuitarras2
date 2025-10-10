@@ -1,21 +1,33 @@
-import express from 'express';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import express from "express";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import { buscarUsuarioPorUsername } from "../models/usuarios.js";
 const router = express.Router();
 
-const usuarios = [
-  { id: 1, username: 'admin', password: bcrypt.hashSync('admin123', 10) },
-  { id: 2, username: 'user', password: bcrypt.hashSync('user123', 10) }
-];
+router.post("/", (req, res) => {
+  try {
+    const { username, password } = req.body;
 
-router.post('/', (req, res) => {
-  const { username, password } = req.body;
-  const usuario = usuarios.find(u => u.username === username);
-  if (usuario && bcrypt.compareSync(password, usuario.password)) {
-    const token = jwt.sign({ id: usuario.id, username: usuario.username }, 'secreto', { expiresIn: '1h' });
-    res.json({ token });
-  } else {
-    res.status(401).json({ error: 'Credenciales inválidas' });
+    if (!username || !password) {
+      return res
+        .status(400)
+        .json({ error: "Username y password son requeridos" });
+    }
+
+    const usuario = buscarUsuarioPorUsername(username);
+
+    if (usuario && bcrypt.compareSync(password, usuario.password)) {
+      const token = jwt.sign(
+        { id: usuario.id, username: usuario.username },
+        "secreto",
+        { expiresIn: "1h" }
+      );
+      res.json({ token, user: { id: usuario.id, username: usuario.username } });
+    } else {
+      res.status(401).json({ error: "Credenciales inválidas" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Error interno del servidor" });
   }
 });
 

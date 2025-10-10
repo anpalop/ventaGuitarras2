@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-// import Home from './pages/Home';
+import Home from "./components/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
@@ -22,6 +22,19 @@ interface Guitarra {
 
 const App: React.FC = () => {
   const [carrito, setCarrito] = useState<Guitarra[]>([]);
+
+  function AgregarCarrito(objeto: Guitarra) {
+    let busqueda = carrito.findIndex((element) => element.id === objeto.id);
+    if (busqueda !== -1) {
+      let actualizarCantidad = [...carrito];
+      actualizarCantidad[busqueda].cantidad =
+        (actualizarCantidad[busqueda].cantidad || 1) + 1;
+      setCarrito(actualizarCantidad);
+    } else {
+      objeto.cantidad = 1;
+      setCarrito([...carrito, objeto]);
+    }
+  }
 
   function removerElemento(id: number) {
     setCarrito((prevCarrito) =>
@@ -72,7 +85,11 @@ const App: React.FC = () => {
             path="/dashboard"
             element={
               <PrivateRoute>
-                <Dashboard />
+                <Home
+                  carrito={carrito}
+                  setCarrito={setCarrito}
+                  AgregarCarrito={AgregarCarrito}
+                />
               </PrivateRoute>
             }
           />

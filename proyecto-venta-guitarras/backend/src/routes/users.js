@@ -1,39 +1,73 @@
-import express from 'express';
+import express from "express";
+import {
+  obtenerUsuariosSinPassword,
+  agregarUsuario,
+  actualizarUsuario,
+  eliminarUsuario,
+} from "../models/usuarios.js";
 const router = express.Router();
 
-let usuarios = [
-  { id: 1, username: 'admin', password: 'admin123' },
-  { id: 2, username: 'user', password: 'user123' }
-];
-
-router.get('/', (req, res) => {
-  res.json(usuarios);
-});
-
-router.post('/', (req, res) => {
-  const { username, password } = req.body;
-  const nuevoUsuario = { id: usuarios.length + 1, username, password };
-  usuarios.push(nuevoUsuario);
-  res.status(201).json(nuevoUsuario);
-});
-
-router.put('/:id', (req, res) => {
-  const { id } = req.params;
-  const { username, password } = req.body;
-  const usuario = usuarios.find(u => u.id === parseInt(id));
-  if (usuario) {
-    usuario.username = username;
-    usuario.password = password;
-    res.json(usuario);
-  } else {
-    res.status(404).json({ error: 'Usuario no encontrado' });
+router.get("/", (req, res) => {
+  try {
+    const usuarios = obtenerUsuariosSinPassword();
+    res.json(usuarios);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 
-router.delete('/:id', (req, res) => {
-  const { id } = req.params;
-  usuarios = usuarios.filter(u => u.id !== parseInt(id));
-  res.status(204).end();
+router.post("/", (req, res) => {
+  try {
+    const { username, password } = req.body;
+
+    if (!username || !password) {
+      return res
+        .status(400)
+        .json({ error: "Username y password son requeridos" });
+    }
+
+    const nuevoUsuario = agregarUsuario(username, password);
+    res.status(201).json(nuevoUsuario);
+  } catch (error) {
+    if (error.message === "El usuario ya existe") {
+      res
+        .status(400)
+        .json({
+          error: "No se pudo registrar el usuario. Puede que ya exista.",
+        });
+    } else {
+      res.status(500).json({ error: error.message });
+    }
+  }
+});
+
+router.put("/:id", (req, res) => {
+  try {
+    const { id } = req.params;
+    const { username, password } = req.body;
+    const usuarioActualizado = actualizarUsuario(id, username, password);
+    res.json(usuarioActualizado);
+  } catch (error) {
+    if (error.message === "Usuario no encontrado") {
+      res.status(404).json({ error: "Usuario no encontrado" });
+    } else {
+      res.status(500).json({ error: error.message });
+    }
+  }
+});
+
+router.delete("/:id", (req, res) => {
+  try {
+    const { id } = req.params;
+    eliminarUsuario(id);
+    res.status(204).end();
+  } catch (error) {
+    if (error.message === "Usuario no encontrado") {
+      res.status(404).json({ error: "Usuario no encontrado" });
+    } else {
+      res.status(500).json({ error: error.message });
+    }
+  }
 });
 
 export default router;
