@@ -1,43 +1,90 @@
-# 🎸 VentaGuitarras: Plataforma Web de Comercio Musical
+📝 Notas del Proyecto: VentaGuitarras
+🎯 Objetivo
+Desarrollar una plataforma web completa para la venta de guitarras, aplicando principios de ingeniería de sistemas y tecnologías modernas en frontend y backend.
 
-Este repositorio contiene el desarrollo completo de **VentaGuitarras**, una aplicación web moderna para la venta y gestión de guitarras. El proyecto está dividido en dos módulos principales: **Frontend** y **Backend**, siguiendo principios de ingeniería de sistemas y buenas prácticas de desarrollo web.
+🧱 Estructura del Proyecto
+Repositorio dividido en dos carpetas:
 
----
+/frontend: interfaz de usuario con React + TypeScript
 
-## 🚀 Tecnologías utilizadas
+/backend: API REST con Node.js + Express
 
-### 🖥️ Frontend
+🖥️ Frontend
+HTML5 + CSS3 + ES8: estructura semántica, estilos modernos y lógica avanzada
 
-- **HTML5, CSS3 y ES8**: Estructura semántica, estilos modernos y lógica avanzada.
-- **Bootstrap 5**: Diseño responsive y Mobile First para una experiencia fluida en cualquier dispositivo.
-- **React + React Router DOM**: SPA con navegación dinámica entre vistas como catálogo, carrito, login y perfil.
-- **TypeScript**: Tipado estático para robustez y mantenibilidad.
-- **6 funciones clave** implementadas:
-  - Registro e inicio de sesión
-  - Visualización de catálogo de guitarras
-  - Agregar al carrito
-  - Finalizar compra
-  - Gestión de usuarios
-  - Panel de administración
+Bootstrap 5: diseño responsive y Mobile First
 
-### 🔐 Autenticación
+React + React Router DOM: SPA con navegación dinámica
 
-- **Login estático, dinámico y cifrado**:
-  - Validación en frontend
-  - Cifrado de contraseñas con `bcrypt`
-  - Tokens JWT para sesiones seguras
+TypeScript: tipado estático para robustez
 
----
+6 funciones clave:
 
-### 📦 Backend
+Registro de usuario
 
-- **Node.js + Express.js**: API RESTful con controladores modulares.
-- **HTTPS**: Métodos implementados: `GET`, `POST`, `PUT`, `DELETE`
-- **Manejo de excepciones**: Middleware para errores personalizados
-- **Concurrencia**: Control de acceso y sincronización de operaciones críticas
-- **Formularios de ingreso de datos**: Validación con `express-validator`
+Inicio de sesión
 
----
+Visualización de catálogo
 
-## 🧩 Estructura del repositorio
+Agregar al carrito
 
+Finalizar compra
+
+Panel de administración
+
+🔐 Autenticación
+Login estático, dinámico y cifrado
+
+Validación en frontend
+
+Cifrado de contraseñas con bcrypt
+
+Tokens JWT para sesiones seguras
+
+📦 Backend
+Node.js + Express.js
+
+API RESTful con rutas para productos, usuarios y pedidos
+
+Métodos HTTPS: GET, POST, PUT, DELETE
+
+Manejo de excepciones con middleware
+
+Control de concurrencia en operaciones críticas
+
+Validación de formularios con express-validator
+
+📈 Buenas prácticas
+Diseño Mobile First con media queries
+
+Accesibilidad auditada con axe DevTools
+
+Evaluación de rendimiento con Lighthouse y DevTools
+
+SPA con baja latencia y carga rápida
+
+Código modular y documentado
+
+🧪 Ingeniería de sistemas aplicada
+Análisis de requerimientos funcionales
+
+Modelado de datos y flujo de navegación
+
+Evaluación de usabilidad y rendimiento
+
+Pruebas de carga y estabilidad visual
+
+/venta-guitarras
+├── /frontend
+│   ├── /src
+│   │   ├── /components
+│   │   ├── /pages
+│   │   ├── /routes
+│   │   └── App.tsx
+│   └── index.html
+├── /backend
+│   ├── /controllers
+│   ├── /routes
+│   ├── /models
+│   └── server.ts
+└── README.md
