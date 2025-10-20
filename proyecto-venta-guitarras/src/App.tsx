@@ -1,15 +1,17 @@
+import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
+
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./components/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboard";
 import Formulario from "./pages/Formulario";
 import Usuarios from "./pages/Usuarios";
+import AddUser from "./pages/AddUser";
+import EditUser from "./pages/EditUser";
+import DeleteUser from "./pages/DeleteUser";
 import PrivateRoute from "./components/PrivateRoute";
-
-import React, { useState } from "react";
 
 interface Guitarra {
   id: number;
@@ -24,12 +26,11 @@ const App: React.FC = () => {
   const [carrito, setCarrito] = useState<Guitarra[]>([]);
 
   function AgregarCarrito(objeto: Guitarra) {
-    let busqueda = carrito.findIndex((element) => element.id === objeto.id);
-    if (busqueda !== -1) {
-      let actualizarCantidad = [...carrito];
-      actualizarCantidad[busqueda].cantidad =
-        (actualizarCantidad[busqueda].cantidad || 1) + 1;
-      setCarrito(actualizarCantidad);
+    const idx = carrito.findIndex((el) => el.id === objeto.id);
+    if (idx !== -1) {
+      const actualizar = [...carrito];
+      actualizar[idx].cantidad = (actualizar[idx].cantidad || 1) + 1;
+      setCarrito(actualizar);
     } else {
       objeto.cantidad = 1;
       setCarrito([...carrito, objeto]);
@@ -37,28 +38,27 @@ const App: React.FC = () => {
   }
 
   function removerElemento(id: number) {
-    setCarrito((prevCarrito) =>
-      prevCarrito.filter((element) => element.id !== id)
-    );
+    setCarrito((prev) => prev.filter((it) => it.id !== id));
   }
+
   function incrementarCantidad(id: number) {
-    setCarrito((prevCarrito) =>
-      prevCarrito.map((element) =>
-        element.id === id
-          ? { ...element, cantidad: (element.cantidad || 1) + 1 }
-          : element
+    setCarrito((prev) =>
+      prev.map((el) =>
+        el.id === id ? { ...el, cantidad: (el.cantidad || 1) + 1 } : el
       )
     );
   }
+
   function decrementarCantidad(id: number) {
-    setCarrito((prevCarrito) =>
-      prevCarrito.map((element) =>
-        element.id === id && (element.cantidad || 1) > 1
-          ? { ...element, cantidad: (element.cantidad || 1) - 1 }
-          : element
+    setCarrito((prev) =>
+      prev.map((el) =>
+        el.id === id && (el.cantidad || 1) > 1
+          ? { ...el, cantidad: (el.cantidad || 1) - 1 }
+          : el
       )
     );
   }
+
   function limpizarCarrito() {
     setCarrito([]);
   }
@@ -74,13 +74,15 @@ const App: React.FC = () => {
       />
       <main className="flex-1">
         <Routes>
-          {/* Ruta inicial: Login */}
           <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/formulario" element={<Formulario />} />
           <Route path="/usuarios" element={<Usuarios />} />
-          {/* Rutas privadas */}
+          <Route path="/addUser" element={<AddUser />} />
+          <Route path="/usuarios/edit/:id" element={<EditUser />} />
+          <Route path="/usuarios/delete/:id" element={<DeleteUser />} />
+
           <Route
             path="/dashboard"
             element={
